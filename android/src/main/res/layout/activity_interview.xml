@@ -1,11 +1,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true">
 
     <RelativeLayout
         android:id="@+id/hero_container"
         android:layout_width="match_parent"
         android:layout_height="200dp">
+        <ImageView
+            android:id="@+id/hero"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
         <LinearLayout
             android:id="@+id/info_container"
             android:layout_width="match_parent"
@@ -40,11 +46,6 @@
                 android:textSize="16sp"
                 android:textColor="@android:color/white" />
         </LinearLayout>
-        <RelativeLayout
-            android:id="@+id/interview_overlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true" />
     </RelativeLayout>
 
     <LinearLayout

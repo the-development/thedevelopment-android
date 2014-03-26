@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">The Development</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="featured_title">Featured This Week</string>
 
@@ -17,7 +16,7 @@
 
 
     <string name="preferences_about_message">
-        The Development 1.0\n
+        The Development 1.0.1\n
         2013 - 2014\n\n
         The Development is a website dedicated to sharing interviews about people and their websites.
         New interviews are posted weekly on Mondays, and this app takes posts from the RSS feed, available at:\n\n
@@ -38,4 +37,6 @@
     <string name="offline_warning">You are offline: Unable to refresh interviews.</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_search">Search</string>
+    <string name="refresh_done">Interviews updated</string>
+    <string name="search_hint">Search interviews by name</string>
 </resources>

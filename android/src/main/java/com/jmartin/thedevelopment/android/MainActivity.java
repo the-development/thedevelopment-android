@@ -53,6 +53,9 @@ public class MainActivity extends Activity {
 
     private ArrayList<Interview> interviewArrayList;
     private InterviewListAdapter interviewListAdapter;
+    private ListView interviewsListView;
+
+    private MenuItem refreshMenuItem;
 
     private RelativeLayout heroLayout;
     private RelativeLayout heroOverlay;
@@ -85,8 +88,7 @@ public class MainActivity extends Activity {
         featuredPosition = (TextView) findViewById(R.id.featured_position);
         featuredDate = (TextView) findViewById(R.id.featured_date);
 
-        ListView interviewsListView = (ListView) findViewById(R.id.interviews_listview);
-
+        interviewsListView = (ListView) findViewById(R.id.interviews_listview);
         interviewsListView.setAdapter(interviewListAdapter);
         interviewsListView.setOnItemClickListener(new InterviewListViewOnClickListener());
 
@@ -115,6 +117,8 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        refreshMenuItem = menu.findItem(R.id.action_refresh);
+
         return true;
     }
 
@@ -122,9 +126,7 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                if (isNetworkAvailable()) {
-                    new FetchRssAsyncTask().execute();
-                }
+                refreshInterviews();
                 return true;
             case R.id.action_preferences:
                 startActivity(new Intent(this, PreferencesActivity.class));
@@ -134,9 +136,17 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void refreshInterviews() {
+        if (isNetworkAvailable()) {
+            new FetchRssAsyncTask().execute();
+        } else {
+            Toast.makeText(this, getString(R.string.offline_warning), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void checkNetworkAvailability() {
         if (!isNetworkAvailable()) {
-            Toast.makeText(this, getString(R.string.offline_warning), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.offline_warning), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -247,6 +257,21 @@ public class MainActivity extends Activity {
     }
 
     private class FetchRssAsyncTask extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            // Animate refresh icon
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            ImageView refreshImageView = (ImageView) inflater.inflate(R.layout.refresh_anim_view, null, false);
+
+            Animation refreshAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.refresh_animation);
+            refreshAnim.setRepeatCount(Animation.INFINITE);
+            refreshImageView.startAnimation(refreshAnim);
+
+            refreshMenuItem.setActionView(refreshImageView);
+        }
 
         @Override
         protected String doInBackground(Void... voids) {
@@ -370,6 +395,19 @@ public class MainActivity extends Activity {
 
             interviewListAdapter.notifyDataSetChanged();
             processFeaturedInterview();
+
+            // Stop refresh animation
+            if (refreshMenuItem != null && refreshMenuItem.getActionView() != null) {
+                refreshMenuItem.getActionView().clearAnimation();
+                refreshMenuItem.setActionView(null);
+            }
+
+            // Scroll listview to top
+            interviewsListView.smoothScrollToPosition(0);
+
+            // Toast!
+            Toast.makeText(MainActivity.this, getString(R.string.refresh_done), Toast.LENGTH_SHORT).show();
+
             super.onPostExecute(aVoid);
         }
     }
