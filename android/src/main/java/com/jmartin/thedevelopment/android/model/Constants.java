@@ -27,6 +27,5 @@ public class Constants {
     public static final String RSS_DATE_FORMAT = "E, d MMM yyyy H:m:s Z";
     public static final String INTERVIEW_DATE_FORMAT = "MMM d yyyy";
 
-    public static final int INTERVIEW_OVERLAY_SHORT_HEIGHT = 100;
-    public static final int INTERVIEW_OVERLAY_TALL_HEIGHT = 200;
+    public static final String MEDIACONTENT_SCREENSHOTS_IDENTIFIER = "screenshots";
 }

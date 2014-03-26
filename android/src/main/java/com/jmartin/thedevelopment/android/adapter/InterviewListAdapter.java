@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jmartin.thedevelopment.android.R;
 import com.jmartin.thedevelopment.android.model.Interview;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,20 +51,23 @@ public class InterviewListAdapter extends BaseAdapter implements Filterable {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View listItemView = inflater.inflate(R.layout.interview_list_item, viewGroup, false);
 
+        ImageView dpImageView = (ImageView) listItemView.findViewById(R.id.dp);
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.name);
         TextView positionTextView = (TextView) listItemView.findViewById(R.id.position);
         TextView dateTextView = (TextView) listItemView.findViewById(R.id.date);
 
         Interview interview = getItem(i);
 
+        Picasso.with(context).load(interview.getDpImage()).fit().centerCrop().into(dpImageView);
         nameTextView.setText(interview.getName());
         positionTextView.setText(interview.getPosition());
         dateTextView.setText(interview.getPublishedDate());
 
         if (interview.isRead()) {
-            nameTextView.setTextColor(R.color.light_grey);
-            positionTextView.setTextColor(R.color.light_grey);
-            dateTextView.setTextColor(R.color.light_grey);
+            dpImageView.setImageAlpha(150);
+            nameTextView.setTextColor(context.getResources().getColor(R.color.light_grey));
+            positionTextView.setTextColor(context.getResources().getColor(R.color.light_grey));
+            dateTextView.setTextColor(context.getResources().getColor(R.color.light_grey));
         }
 
         return listItemView;

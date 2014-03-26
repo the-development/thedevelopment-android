@@ -14,6 +14,7 @@ public class Interview implements Serializable {
     private String url;
     private String image;
     private boolean read = false;
+    private String dpImage;
 
     public boolean isRead() {
         return read;
@@ -23,12 +24,13 @@ public class Interview implements Serializable {
         this.read = read;
     }
 
-    public Interview(String name, String publishedDate, String position, String url, String image, String content) {
+    public Interview(String name, String publishedDate, String position, String url, String image, String dpImage, String content) {
         this.name = name;
         this.publishedDate = publishedDate;
         this.position = position;
         this.url = url;
         this.image = image;
+        this.dpImage = dpImage;
         this.content = content;
         this.read = false;
     }
@@ -79,5 +81,13 @@ public class Interview implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getDpImage() {
+        return dpImage;
+    }
+
+    public void setDpImage(String dpImage) {
+        this.dpImage = dpImage;
     }
 }

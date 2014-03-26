@@ -30,6 +30,7 @@ public class InterviewActivity extends Activity {
     private LinearLayout infoContainer;
 
     private ImageView heroImageView;
+    private ImageView dpImageView;
     private TextView nameTextView;
     private TextView positionTextView;
     private TextView dateTextView;
@@ -50,6 +51,7 @@ public class InterviewActivity extends Activity {
         heroLayout.setOnClickListener(new ScreenshotClickListener());
 
         heroImageView = (ImageView) findViewById(R.id.hero);
+        dpImageView = (ImageView) findViewById(R.id.dp);
         nameTextView = (TextView) findViewById(R.id.name);
         positionTextView = (TextView) findViewById(R.id.position);
         dateTextView = (TextView) findViewById(R.id.date);
@@ -64,7 +66,7 @@ public class InterviewActivity extends Activity {
             }
         });
 
-        processFeaturedInterview();
+        processInterview();
     }
 
     @Override
@@ -81,7 +83,8 @@ public class InterviewActivity extends Activity {
         }
     }
 
-    private void processFeaturedInterview() {
+    private void processInterview() {
+        Picasso.with(this).load(interview.getDpImage()).fit().centerCrop().into(dpImageView);
         nameTextView.setText(interview.getName());
         dateTextView.setText(interview.getPublishedDate());
         positionTextView.setText(interview.getPosition());

@@ -322,6 +322,7 @@ public class MainActivity extends Activity {
                 String date = "";
                 String url = "";
                 String image = "";
+                String dpImage = "";
                 String content = "";
 
                 while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -340,7 +341,13 @@ public class MainActivity extends Activity {
                         } else if (parser.getName().equals(Constants.RSS_TAG_LINK)) {
                             url = parser.nextText();
                         } else if (parser.getName().equals(Constants.RSS_TAG_MEDIA)) {
-                            image = parser.getAttributeValue(null, Constants.RSS_TAG_MEDIA_ATTR_URL);
+                            String imgTemp = parser.getAttributeValue(null, Constants.RSS_TAG_MEDIA_ATTR_URL);
+
+                            if (imgTemp.contains(Constants.MEDIACONTENT_SCREENSHOTS_IDENTIFIER)) {
+                                image = imgTemp;
+                            } else {
+                                dpImage = imgTemp;
+                            }
                         } else if (parser.getName().equals(Constants.RSS_TAG_PUBDATE)) {
                             SimpleDateFormat rssFormat = new SimpleDateFormat(Constants.RSS_DATE_FORMAT);
                             Date dateObj = rssFormat.parse(parser.nextText());
@@ -354,7 +361,7 @@ public class MainActivity extends Activity {
                         }
                     } else if (eventType == XmlPullParser.END_TAG) {
                         if (parser.getName().equals(Constants.RSS_TAG_ITEM)) {
-                            Interview interview = new Interview(name, date, position, url, image, content);
+                            Interview interview = new Interview(name, date, position, url, image, dpImage, content);
                             interviewArrayList.add(interview);
                         }
                     }
