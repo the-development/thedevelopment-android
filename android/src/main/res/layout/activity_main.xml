@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/featured_hero_container"
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:paddingRight="@dimen/view_horizontal_margin"
+            android:paddingLeft="@dimen/view_horizontal_margin"
+            android:paddingTop="@dimen/view_vertical_margin"
+            android:paddingBottom="@dimen/view_vertical_margin"
+            android:background="@color/transparent_grey">
+            <TextView
+                android:id="@+id/featured_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/featured_title"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/featured_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif"
+                android:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/featured_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textSize="16sp"
+                android:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/featured_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textSize="16sp"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/hero_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/purple_overlay_drawable"
+            android:clickable="true" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/interviews_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/featured_hero_container" />
+
+</RelativeLayout>

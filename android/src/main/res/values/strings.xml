@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">The Development</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="featured_title">Featured This Week</string>
+
+    <!-- Preferences -->
+
+    <string name="preferences_about_title">About</string>
+    <string name="preferences_attributions_title">Attributions</string>
+    <string name="preferences_rate_title">Rate The Development on Google Play</string>
+    <string name="preferences_rate_key">pref_rate</string>
+    <string name="preferences_goto_td_title">Go to The Development on the web</string>
+    <string name="preferences_goto_td_key">pref_goto_td</string>
+
+
+    <string name="preferences_about_message">
+        The Development 1.0\n
+        2013 - 2014\n\n
+        The Development is a website dedicated to sharing interviews about people and their websites.
+        New interviews are posted weekly on Mondays, and this app takes posts from the RSS feed, available at:\n\n
+        http://thedevelopment.co/rss.xml\n\n
+    </string>
+
+    <string name="preferences_attributions_message">
+        The following third party libraries were used in the creation of this app:\n\n
+        Square Picasso 2.2.0\n
+        Square OkHttp 1.5.2\n
+        Google Gson 2.2.4\n\n
+        All libraries licensed under the Apache License:\n\n
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.\n\n
+        You may obtain a copy of the License at\n\n
+        http://www.apache.org/licenses/LICENSE-2.0\n\n
+    </string>
+    <string name="offline_warning">You are offline: Unable to refresh interviews.</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_search">Search</string>
+</resources>

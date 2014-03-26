@@ -1,0 +1,14 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/TDActionBarStyle</item>
+    </style>
+
+    <style name="TDActionBarStyle" parent="android:Widget.Holo.ActionBar">
+        <item name="android:icon">@drawable/ic_icon</item>
+        <item name="android:background">@drawable/actionbar_drawable</item>
+    </style>
+
+</resources>
