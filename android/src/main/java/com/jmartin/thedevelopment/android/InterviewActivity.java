@@ -2,9 +2,6 @@ package com.jmartin.thedevelopment.android;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -20,8 +17,6 @@ import com.jmartin.thedevelopment.android.model.Interview;
 import com.jmartin.thedevelopment.android.model.TDWebView;
 import com.jmartin.thedevelopment.android.preferences.PreferencesActivity;
 import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
 
 
 /**
@@ -93,31 +88,12 @@ public class InterviewActivity extends Activity {
 
         contentWebView.loadData(interview.getContent(), "text/html", Constants.UTF_CHARSET);
 
-        new FetchImageAsyncTask().execute(interview.getImage());
+        Picasso.with(this).load(interview.getImage()).into(heroImageView);
     }
 
     private int getDP(int px) {
         DisplayMetrics dm = getResources().getDisplayMetrics();
         return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, dm));
-    }
-    private class FetchImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... imageUrls) {
-            Bitmap image = null;
-            try {
-                image = Picasso.with(InterviewActivity.this).load(imageUrls[0]).get();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return image;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            heroImageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
-            super.onPostExecute(bitmap);
-        }
     }
 
     /* Click Listener for screenshot overlay */

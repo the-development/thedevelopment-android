@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -57,9 +55,9 @@ public class MainActivity extends Activity {
 
     private MenuItem refreshMenuItem;
 
-    private RelativeLayout heroLayout;
     private RelativeLayout heroOverlay;
 
+    private ImageView featuredImageView;
     private TextView featuredName;
     private TextView featuredPosition;
     private TextView featuredDate;
@@ -80,10 +78,10 @@ public class MainActivity extends Activity {
         // Views
         interviewListAdapter = new InterviewListAdapter(this, interviewArrayList);
 
-        heroLayout = (RelativeLayout) findViewById(R.id.featured_hero_container);
         heroOverlay = (RelativeLayout) findViewById(R.id.hero_overlay);
         heroOverlay.setOnClickListener(new HeroClickListener());
 
+        featuredImageView = (ImageView) findViewById(R.id.featured_image);
         featuredName = (TextView) findViewById(R.id.featured_name);
         featuredPosition = (TextView) findViewById(R.id.featured_position);
         featuredDate = (TextView) findViewById(R.id.featured_date);
@@ -205,7 +203,8 @@ public class MainActivity extends Activity {
             featuredName.setText(featuredInterview.getName());
             featuredDate.setText(featuredInterview.getPublishedDate());
             featuredPosition.setText(featuredInterview.getPosition());
-            new FetchImageAsyncTask().execute(featuredInterview.getImage());
+
+            Picasso.with(this).load(featuredInterview.getImage()).into(featuredImageView);
         }
     }
 
@@ -235,42 +234,23 @@ public class MainActivity extends Activity {
         startActivity(interviewIntent);
     }
 
-    /* AsyncTasks */
-    private class FetchImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... imageUrls) {
-            Bitmap image = null;
-            try {
-                image = Picasso.with(MainActivity.this).load(imageUrls[0]).get();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return image;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            heroLayout.setBackground(new BitmapDrawable(getResources(), bitmap));
-            super.onPostExecute(bitmap);
-        }
-    }
-
     private class FetchRssAsyncTask extends AsyncTask<Void, Void, String> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            // Animate refresh icon
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            ImageView refreshImageView = (ImageView) inflater.inflate(R.layout.refresh_anim_view, null, false);
+            if (refreshMenuItem != null) {
+                // Animate refresh icon
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                ImageView refreshImageView = (ImageView) inflater.inflate(R.layout.refresh_anim_view, null, false);
 
-            Animation refreshAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.refresh_animation);
-            refreshAnim.setRepeatCount(Animation.INFINITE);
-            refreshImageView.startAnimation(refreshAnim);
+                Animation refreshAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.refresh_animation);
+                refreshAnim.setRepeatCount(Animation.INFINITE);
+                refreshImageView.startAnimation(refreshAnim);
 
-            refreshMenuItem.setActionView(refreshImageView);
+                refreshMenuItem.setActionView(refreshImageView);
+            }
         }
 
         @Override

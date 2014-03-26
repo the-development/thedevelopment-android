@@ -6,6 +6,11 @@
         android:id="@+id/featured_hero_container"
         android:layout_width="match_parent"
         android:layout_height="240dp">
+        <ImageView
+            android:id="@+id/featured_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
