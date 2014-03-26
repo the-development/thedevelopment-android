@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,9 +32,9 @@ public class InterviewActivity extends Activity {
     private Interview interview;
 
     private RelativeLayout heroLayout;
-    private RelativeLayout interviewOverlay;
     private LinearLayout infoContainer;
 
+    private ImageView heroImageView;
     private TextView nameTextView;
     private TextView positionTextView;
     private TextView dateTextView;
@@ -49,11 +50,11 @@ public class InterviewActivity extends Activity {
         interview = (Interview) getIntent().getSerializableExtra(Constants.INTERVIEW_INTENT_TAG);
 
         heroLayout = (RelativeLayout) findViewById(R.id.hero_container);
-        interviewOverlay = (RelativeLayout) findViewById(R.id.interview_overlay);
         infoContainer = (LinearLayout) findViewById(R.id.info_container);
 
-        interviewOverlay.setOnClickListener(new ScreenshotClickListener());
+        heroLayout.setOnClickListener(new ScreenshotClickListener());
 
+        heroImageView = (ImageView) findViewById(R.id.hero);
         nameTextView = (TextView) findViewById(R.id.name);
         positionTextView = (TextView) findViewById(R.id.position);
         dateTextView = (TextView) findViewById(R.id.date);
@@ -114,7 +115,7 @@ public class InterviewActivity extends Activity {
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-            heroLayout.setBackground(new BitmapDrawable(getResources(), bitmap));
+            heroImageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
             super.onPostExecute(bitmap);
         }
     }
