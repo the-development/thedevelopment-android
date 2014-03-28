@@ -154,12 +154,10 @@ public class MainActivity extends Activity {
         Gson gson = new Gson();
 
         if (savedInstanceState == null) {
-            Log.d("loadInterviews", "savedInstanceState is NULL");
             SharedPreferences prefs = getPreferences(MODE_PRIVATE);
             interviewsJson = prefs.getString(Constants.SP_INTERVIEWS_KEY, "");
             featuredInterviewJson = prefs.getString(Constants.SP_FEATURED_INTERVIEW_KEY, "");
         } else {
-            Log.d("loadInterviews", "savedInstanceState is NOT NULL");
             interviewsJson = savedInstanceState.getString(Constants.SP_INTERVIEWS_KEY, "");
             featuredInterviewJson = savedInstanceState.getString(Constants.SP_FEATURED_INTERVIEW_KEY, "");
         }
@@ -169,12 +167,10 @@ public class MainActivity extends Activity {
 
         // Only automatically fetch new articles onCreate if the cache is empty.
         if (gsonArrayList == null || gsonArrayList.size() == 0) {
-            Log.d("loadInterviews", "interviewsArrayList is EMPTY or NULL");
             if (isNetworkAvailable()) {
                 new FetchRssAsyncTask().execute();
             }
         } else {
-            Log.d("loadInterviews", "interviewsArrayList is NOT EMPTY or NULL. Notifying data set changed.");
             interviewArrayList.clear();
             interviewArrayList.addAll(gsonArrayList);
             interviewListAdapter.notifyDataSetChanged();
