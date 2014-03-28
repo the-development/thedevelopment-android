@@ -369,6 +369,7 @@ public class MainActivity extends Activity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                return null;
             }
 
             return null;
@@ -377,23 +378,26 @@ public class MainActivity extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             Log.d("Done parsing RSS", "ArrayList size: " + interviewArrayList.size());
-            featuredInterview = interviewArrayList.get(0);
-            interviewArrayList.remove(0);
 
-            interviewListAdapter.notifyDataSetChanged();
-            processFeaturedInterview();
+            if (interviewArrayList.size() > 0) {
+                featuredInterview = interviewArrayList.get(0);
+                interviewArrayList.remove(0);
 
-            // Stop refresh animation
-            if (refreshMenuItem != null && refreshMenuItem.getActionView() != null) {
-                refreshMenuItem.getActionView().clearAnimation();
-                refreshMenuItem.setActionView(null);
+                interviewListAdapter.notifyDataSetChanged();
+                processFeaturedInterview();
+
+                // Stop refresh animation
+                if (refreshMenuItem != null && refreshMenuItem.getActionView() != null) {
+                    refreshMenuItem.getActionView().clearAnimation();
+                    refreshMenuItem.setActionView(null);
+                }
+
+                // Scroll listview to top
+                interviewsListView.smoothScrollToPosition(0);
+
+                // Toast!
+                Toast.makeText(MainActivity.this, getString(R.string.refresh_done), Toast.LENGTH_SHORT).show();
             }
-
-            // Scroll listview to top
-            interviewsListView.smoothScrollToPosition(0);
-
-            // Toast!
-            Toast.makeText(MainActivity.this, getString(R.string.refresh_done), Toast.LENGTH_SHORT).show();
 
             super.onPostExecute(aVoid);
         }
